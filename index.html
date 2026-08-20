@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>Habit Jar</title>
+    <link rel="icon" href="data:," />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/src/style.css" />
+  </head>
+  <body>
+    <div class="stage">
+      <div class="phone">
+        <div class="notch"></div>
+        <div class="statusbar">
+          <span class="time">20:06</span>
+          <div class="statusicons">
+            <svg width="18" height="12" viewBox="0 0 18 12" fill="none"><rect x="0" y="7" width="3" height="5" rx="0.5" fill="currentColor"/><rect x="4.5" y="5" width="3" height="7" rx="0.5" fill="currentColor"/><rect x="9" y="2.5" width="3" height="9.5" rx="0.5" fill="currentColor"/><rect x="13.5" y="0" width="3" height="12" rx="0.5" fill="currentColor"/></svg>
+            <svg width="16" height="12" viewBox="0 0 16 12" fill="none"><path d="M8 9.5a1.3 1.3 0 100 2.6 1.3 1.3 0 000-2.6zM4.8 6.9a4.6 4.6 0 016.4 0l-1.2 1.2a2.9 2.9 0 00-4 0L4.8 6.9zM2 4.1a8.4 8.4 0 0112 0L12.8 5.3a6.7 6.7 0 00-9.6 0L2 4.1z" fill="currentColor"/></svg>
+            <svg width="24" height="12" viewBox="0 0 24 12" fill="none"><rect x="0.5" y="0.5" width="20" height="11" rx="2.5" stroke="currentColor"/><rect x="2" y="2" width="15" height="8" rx="1.2" fill="currentColor"/><rect x="21.5" y="4" width="1.8" height="4" rx="0.9" fill="currentColor"/></svg>
+          </div>
+        </div>
+
+        <main class="app" id="app">
+          <header class="topbar">
+            <div>
+              <h1>Good Evening</h1>
+              <button class="link-btn" type="button">
+                <span class="dot"></span> Preview check-in
+              </button>
+            </div>
+            <button class="streak" id="streakBtn" type="button" title="Shake the jar">
+              <span class="flame">🔥</span> <span id="streakCount">2</span> Days
+            </button>
+          </header>
+
+          <ul class="week" id="week">
+            <!-- days injected by JS -->
+          </ul>
+
+          <section class="jar-wrap" id="jarWrap">
+            <div class="jar-glow"></div>
+            <div class="jar-count" id="jarCount">0 items</div>
+            <div class="jar-frame">
+              <svg id="jarBackSvg" class="jar-svg jar-back" viewBox="0 0 300 340" xmlns="http://www.w3.org/2000/svg"></svg>
+              <canvas id="physicsCanvas"></canvas>
+              <svg id="jarFrontSvg" class="jar-svg jar-front" viewBox="0 0 300 340" xmlns="http://www.w3.org/2000/svg"></svg>
+              <svg id="jarLidSvg" class="jar-svg jar-lid" viewBox="0 0 300 340" xmlns="http://www.w3.org/2000/svg"></svg>
+            </div>
+            <div class="jar-hint" id="jarHint">Tap the jar to fill it</div>
+          </section>
+
+          <section class="habits-head">
+            <h2>Your habits today</h2>
+            <div class="segmented">
+              <button class="seg" type="button">To&#8209;Do</button>
+              <button class="seg active" type="button">Habits</button>
+            </div>
+          </section>
+
+          <ul class="habit-list" id="habitList"></ul>
+        </main>
+
+        <nav class="tabbar">
+          <button class="tab active" type="button">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M4 11.5 12 5l8 6.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M6 10v8.5a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V10" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            Home
+          </button>
+          <button class="tab" type="button">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M4 20V9M9 20V4M14 20v-7M19 20V7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+            Journey
+          </button>
+          <button class="tab" type="button">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M12 3l7 3v5c0 4.5-3 8-7 10-4-2-7-5.5-7-10V6l7-3z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>
+            Focus
+          </button>
+          <button class="tab" type="button">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><rect x="4" y="12" width="3.5" height="8" rx="1" fill="currentColor"/><rect x="10.2" y="7" width="3.5" height="13" rx="1" fill="currentColor"/><rect x="16.4" y="3" width="3.5" height="17" rx="1" fill="currentColor"/></svg>
+            Details
+          </button>
+        </nav>
+      </div>
+    </div>
+
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>
