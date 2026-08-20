@@ -99,11 +99,20 @@ body {
 .app {
   flex: 1;
   min-height: 0;
+  position: relative;
   background: linear-gradient(180deg, var(--lavender-50) 0%, var(--lavender-100) 100%);
+  overflow: hidden;
+}
+
+.screen {
+  display: none;
+  height: 100%;
   padding: 6px 22px 14px;
-  display: flex;
   flex-direction: column;
   overflow: hidden;
+}
+.screen.active {
+  display: flex;
 }
 
 .tabbar {
@@ -268,7 +277,8 @@ body {
 }
 
 .jar-svg,
-#physicsCanvas {
+#physicsCanvas,
+#pigCanvas {
   position: absolute;
   inset: 0;
   width: 100%;
@@ -315,7 +325,9 @@ body {
   white-space: nowrap;
 }
 .jar-wrap:hover .jar-hint,
-.jar-wrap.show-hint .jar-hint {
+.jar-wrap.show-hint .jar-hint,
+.pig-wrap:hover .jar-hint,
+.pig-wrap.show-hint .jar-hint {
   opacity: 1;
 }
 
@@ -482,6 +494,176 @@ body {
 }
 .tab svg {
   color: var(--ink-400);
+}
+.tab:disabled {
+  opacity: 0.35;
+  cursor: default;
+}
+
+/* ---------- Savings / Piggy bank screen ---------- */
+.savings-sub {
+  margin-top: 6px;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--ink-600);
+}
+
+.progress-track {
+  height: 10px;
+  border-radius: 999px;
+  background: rgba(124, 92, 255, 0.12);
+  margin: 14px 0 4px;
+  overflow: hidden;
+}
+.progress-fill {
+  height: 100%;
+  width: 0%;
+  border-radius: 999px;
+  background: linear-gradient(90deg, var(--purple-500), #ff8fab);
+  transition: width 0.5s cubic-bezier(0.22, 0.8, 0.4, 1);
+}
+
+.pig-wrap {
+  position: relative;
+  flex: 0 0 auto;
+  margin: 8px 0 6px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  cursor: pointer;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.pig-glow {
+  background: radial-gradient(closest-side, rgba(255, 143, 171, 0.32), transparent 75%);
+}
+
+.pig-frame {
+  position: relative;
+  width: 210px;
+  max-width: 100%;
+  max-height: 100%;
+  aspect-ratio: 1 / 1;
+  flex-shrink: 1;
+}
+
+#pigBackSvg {
+  z-index: 1;
+  filter: drop-shadow(0 24px 50px -22px rgba(200, 40, 100, 0.5));
+}
+#pigCanvas {
+  z-index: 2;
+}
+#pigFrontSvg {
+  z-index: 3;
+}
+#pigCracksSvg {
+  z-index: 4;
+}
+#pigShardsSvg {
+  z-index: 5;
+}
+
+.crack-line {
+  transition: opacity 0.4s ease;
+}
+
+.pig-shards {
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+.pig-frame.shattered .pig-shards {
+  opacity: 1;
+}
+.pig-frame.shattered #pigBackSvg,
+.pig-frame.shattered #pigFrontSvg,
+.pig-frame.shattered #pigCracksSvg {
+  opacity: 0;
+  transition: opacity 0.25s ease;
+}
+
+.shard {
+  transform-box: fill-box;
+  transform-origin: center;
+  transition: transform 0.75s cubic-bezier(0.16, 0.72, 0.32, 1.15), opacity 0.75s ease;
+  transition-delay: var(--sd, 0ms);
+}
+.pig-frame.shattered .shard {
+  transform: translate(calc(var(--dx) * 150px), calc(var(--dy) * 150px + 70px))
+    rotate(calc(var(--dx) * 240deg));
+  opacity: 0;
+}
+
+.pig-wrap.shaking .pig-frame {
+  animation: pig-shake 0.32s ease-in-out;
+}
+@keyframes pig-shake {
+  0%,
+  100% {
+    transform: rotate(0deg);
+  }
+  25% {
+    transform: rotate(-3deg);
+  }
+  75% {
+    transform: rotate(3deg);
+  }
+}
+
+.goal-banner {
+  text-align: center;
+  font-weight: 800;
+  font-size: 13.5px;
+  color: #b3134f;
+  background: linear-gradient(135deg, #ffe0ec, #ffd0e0);
+  border-radius: 16px;
+  padding: 10px 12px;
+  margin-bottom: 8px;
+  opacity: 0;
+  transform: scale(0.9);
+  height: 0;
+  transition: opacity 0.35s ease, transform 0.35s ease;
+  pointer-events: none;
+}
+.goal-banner.visible {
+  opacity: 1;
+  transform: scale(1);
+  height: auto;
+  margin-bottom: 12px;
+}
+
+.coin-chips {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+}
+.coin-chip {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+  border: none;
+  background: var(--white);
+  border-radius: 16px;
+  padding: 10px 4px;
+  font-weight: 700;
+  font-size: 11px;
+  color: var(--ink-600);
+  box-shadow: 0 10px 20px -14px rgba(76, 51, 145, 0.4);
+  cursor: pointer;
+  transition: transform 0.15s ease;
+}
+.coin-chip:active {
+  transform: scale(0.92);
+}
+.coin-chip .coin-dot {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(0, 0, 0, 0.08);
 }
 
 /* ---------- misc ---------- */

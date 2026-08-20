@@ -27,59 +27,98 @@
         </div>
 
         <main class="app" id="app">
-          <header class="topbar">
-            <div>
-              <h1>Good Evening</h1>
-              <button class="link-btn" type="button">
-                <span class="dot"></span> Preview check-in
+          <section class="screen active" id="screen-home">
+            <header class="topbar">
+              <div>
+                <h1>Good Evening</h1>
+                <button class="link-btn" type="button">
+                  <span class="dot"></span> Preview check-in
+                </button>
+              </div>
+              <button class="streak" id="streakBtn" type="button" title="Shake the jar">
+                <span class="flame">🔥</span> <span id="streakCount">2</span> Days
               </button>
-            </div>
-            <button class="streak" id="streakBtn" type="button" title="Shake the jar">
-              <span class="flame">🔥</span> <span id="streakCount">2</span> Days
-            </button>
-          </header>
+            </header>
 
-          <ul class="week" id="week">
-            <!-- days injected by JS -->
-          </ul>
+            <ul class="week" id="week">
+              <!-- days injected by JS -->
+            </ul>
 
-          <section class="jar-wrap" id="jarWrap">
-            <div class="jar-glow"></div>
-            <div class="jar-count" id="jarCount">0 items</div>
-            <div class="jar-frame">
-              <svg id="jarBackSvg" class="jar-svg jar-back" viewBox="0 0 300 340" xmlns="http://www.w3.org/2000/svg"></svg>
-              <canvas id="physicsCanvas"></canvas>
-              <svg id="jarFrontSvg" class="jar-svg jar-front" viewBox="0 0 300 340" xmlns="http://www.w3.org/2000/svg"></svg>
-              <svg id="jarLidSvg" class="jar-svg jar-lid" viewBox="0 0 300 340" xmlns="http://www.w3.org/2000/svg"></svg>
-            </div>
-            <div class="jar-hint" id="jarHint">Tap the jar to fill it</div>
+            <section class="jar-wrap" id="jarWrap">
+              <div class="jar-glow"></div>
+              <div class="jar-count" id="jarCount">0 items</div>
+              <div class="jar-frame">
+                <svg id="jarBackSvg" class="jar-svg jar-back" viewBox="0 0 300 340" xmlns="http://www.w3.org/2000/svg"></svg>
+                <canvas id="physicsCanvas"></canvas>
+                <svg id="jarFrontSvg" class="jar-svg jar-front" viewBox="0 0 300 340" xmlns="http://www.w3.org/2000/svg"></svg>
+                <svg id="jarLidSvg" class="jar-svg jar-lid" viewBox="0 0 300 340" xmlns="http://www.w3.org/2000/svg"></svg>
+              </div>
+              <div class="jar-hint" id="jarHint">Tap the jar to fill it</div>
+            </section>
+
+            <section class="habits-head">
+              <h2>Your habits today</h2>
+              <div class="segmented">
+                <button class="seg" type="button">To&#8209;Do</button>
+                <button class="seg active" type="button">Habits</button>
+              </div>
+            </section>
+
+            <ul class="habit-list" id="habitList"></ul>
           </section>
 
-          <section class="habits-head">
-            <h2>Your habits today</h2>
-            <div class="segmented">
-              <button class="seg" type="button">To&#8209;Do</button>
-              <button class="seg active" type="button">Habits</button>
-            </div>
-          </section>
+          <section class="screen" id="screen-savings">
+            <header class="topbar">
+              <div>
+                <h1>Savings Goal</h1>
+                <div class="savings-sub" id="savingsSub">Rp0 dari Rp500.000</div>
+              </div>
+              <button class="streak" id="pigShakeBtn" type="button" title="Shake the piggy bank">
+                <span class="flame">🐷</span> <span id="pigPercent">0%</span>
+              </button>
+            </header>
 
-          <ul class="habit-list" id="habitList"></ul>
+            <div class="progress-track">
+              <div class="progress-fill" id="progressFill"></div>
+            </div>
+
+            <section class="pig-wrap" id="pigWrap">
+              <div class="jar-glow pig-glow"></div>
+              <div class="pig-frame" id="pigFrame">
+                <svg id="pigBackSvg" class="jar-svg" viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg"></svg>
+                <canvas id="pigCanvas"></canvas>
+                <svg id="pigFrontSvg" class="jar-svg" viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg"></svg>
+                <svg id="pigCracksSvg" class="jar-svg" viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg"></svg>
+                <svg id="pigShardsSvg" class="jar-svg pig-shards" viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg"></svg>
+              </div>
+              <div class="jar-hint" id="pigHint">Tap the piggy to add a coin</div>
+            </section>
+
+            <div class="goal-banner" id="goalBanner">🎉 Goal reached! Piggy bank pecah!</div>
+
+            <section class="habits-head">
+              <h2>Quick add</h2>
+              <button class="link-btn" id="pigResetBtn" type="button">Reset</button>
+            </section>
+
+            <div class="coin-chips" id="coinChips"></div>
+          </section>
         </main>
 
         <nav class="tabbar">
-          <button class="tab active" type="button">
+          <button class="tab active" type="button" data-screen="screen-home">
             <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M4 11.5 12 5l8 6.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M6 10v8.5a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1V10" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
             Home
           </button>
-          <button class="tab" type="button">
+          <button class="tab" type="button" data-screen="screen-savings">
             <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M4 20V9M9 20V4M14 20v-7M19 20V7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
             Journey
           </button>
-          <button class="tab" type="button">
+          <button class="tab" type="button" disabled>
             <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M12 3l7 3v5c0 4.5-3 8-7 10-4-2-7-5.5-7-10V6l7-3z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>
             Focus
           </button>
-          <button class="tab" type="button">
+          <button class="tab" type="button" disabled>
             <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><rect x="4" y="12" width="3.5" height="8" rx="1" fill="currentColor"/><rect x="10.2" y="7" width="3.5" height="13" rx="1" fill="currentColor"/><rect x="16.4" y="3" width="3.5" height="17" rx="1" fill="currentColor"/></svg>
             Details
           </button>

@@ -1,6 +1,7 @@
 import "./style.css";
 import { JarPhysics, PALETTE } from "./physics.js";
 import { renderJarBack, renderJarFront, renderLid } from "./jarSvg.js";
+import { initSavingsPage } from "./pigPage.js";
 
 const WEEK_DAYS = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 const TODAY_INDEX = 2; // Tue, matches the reference screenshot
@@ -153,6 +154,29 @@ function main() {
     updateCount();
     jarWrap.classList.add("show-hint");
   }, 500);
+
+  initTabbar();
+}
+
+function initTabbar() {
+  const tabs = document.querySelectorAll(".tab[data-screen]");
+  let savingsPage = null;
+
+  tabs.forEach((tab) => {
+    tab.addEventListener("click", () => {
+      const targetId = tab.dataset.screen;
+      tabs.forEach((t) => t.classList.toggle("active", t === tab));
+      document.querySelectorAll(".screen").forEach((s) => s.classList.toggle("active", s.id === targetId));
+
+      if (targetId === "screen-savings") {
+        if (!savingsPage) {
+          savingsPage = initSavingsPage();
+        } else {
+          savingsPage.resize();
+        }
+      }
+    });
+  });
 }
 
 main();
